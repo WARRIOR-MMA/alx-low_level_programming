@@ -42,7 +42,7 @@ void close_descriptor(int fd)
 		exit(100);
 	}
 }
-@argc: The number of arguments supplied to the program.
+
 /**
  * main - Contents copied of a file to another file
  * @argv: Array of pointers to the arguments.
