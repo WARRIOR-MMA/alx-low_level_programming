@@ -131,7 +131,7 @@ char *beginWith(const char *, const char *);
 char *cat_string(char *, char *);
 
 char *copy_string(char *, char *);
-char *duplicate_str(const char *);
+char *dup_str(const char *);
 void strPuts(char *);
 int putchar_s(char);
 
@@ -165,9 +165,9 @@ int assist_s(data_t *);
 int hist_info(data_t *);
 int alias_info(data_t *);
 
-ssize_t input_buf(data_t *info, char **buf, size_t *len)
+ssize_t input_buf(data_t *info, char **buf, size_t *len);
 ssize_t gStore(data_t *);
-ssize_t read_buf(data_t *info, char *buf, size_t *i)
+ssize_t read_buf(data_t *info, char *buf, size_t *i);
 int lin_Ret(data_t *, char **, size_t *);
 void process_sig(int);
 
