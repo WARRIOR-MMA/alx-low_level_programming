@@ -126,7 +126,7 @@ int lin_Ret(data_t *data, char **lptr, size_t *size)
 	char *e = NULL, *new_p = NULL, *c;
 
 	e = *lptr;
-	if (p && size)
+	if (e && size)
 		a = *size;
 	if (i == len)
 		i = len = 0;
@@ -138,7 +138,7 @@ int lin_Ret(data_t *data, char **lptr, size_t *size)
 	c = char_string(buf + i, '\n');
 	j = c ? 1 + (unsigned int)(c - buf) : len;
 	new_p = realloc_mem(e, a, a ? a + j : j + 1);
-	if (!new_e) /* MALLOC FAILURE! */
+	if (!new_p) /* MALLOC FAILURE! */
 		return (e ? free(e), -1 : -1);
 
 	if (a)

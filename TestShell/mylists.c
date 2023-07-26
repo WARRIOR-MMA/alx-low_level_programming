@@ -18,7 +18,7 @@ Log_t *nodeAffix(Log_t **hNode, const char *cStr, int num)
 	if (!nHead)
 		return (NULL);
 	init_Memory((void *)nHead, 0, sizeof(Log_t));
-	nHead->num = num;
+	nHead->number = number;
 	if (cStr)
 	{
 		nHead->cStr = duplicate_str(cStr);

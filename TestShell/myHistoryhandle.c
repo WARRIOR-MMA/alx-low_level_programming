@@ -115,7 +115,7 @@ int createLs_hist(data_t *info, char *buf, int linecount)
 
 	if (info->history)
 		clNode = info->history;
-	affixFin_clNode(&clNode, buf, linecount);
+	affixFin_node(&clNode, buf, linecount);
 
 	if (!info->history)
 		info->history = clNode;

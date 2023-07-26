@@ -28,8 +28,8 @@ char **ls_str(Log_t *high)
 {
 	Log_t *node = high;
 	char **strs;
-	size_t n = ls_snze(high), s;
-	char *chStr;
+	size_t n = ls_size(high), s;
+	char *cStr;
 
 	if (!high || !n)
 		return (NULL);
@@ -38,8 +38,8 @@ char **ls_str(Log_t *high)
 		return (NULL);
 	for (n = 0; node; node = node->next, n++)
 	{
-		chStr = malloc(_cStrlen(node->chStr) + 1);
-		if (!chStr)
+		cStr = malloc(len_string(node->cStr) + 1);
+		if (!cStr)
 		{
 			for (s = 0; s < n; s++)
 				free(strs[s]);
@@ -47,8 +47,8 @@ char **ls_str(Log_t *high)
 			return (NULL);
 		}
 
-		chStr = copy_string(chStr, node->chStr);
-		strs[n] = chStr;
+		cStr = copy_string(cStr, node->cStr);
+		strs[n] = cStr;
 	}
 	strs[n] = NULL;
 	return (strs);
