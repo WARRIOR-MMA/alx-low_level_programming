@@ -42,7 +42,7 @@ char *string_ncopy(char *sdestin, char *xsrc, int c)
 char *string_nop(char *dest1, char *src2, int num)
 {
 	int a, f;
-	char *cs = dest;
+	char *cs = dest1;
 
 	a = 0;
 	f = 0;

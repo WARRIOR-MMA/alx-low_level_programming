@@ -4,11 +4,11 @@
  * nodeAffix - makes node a t beginning of list
  * @hNode: pointer add. to hNode
  * @cStr: str field
- * @num: mark node of history
+ * @number: mark node of history
  * Return: size of list
  */
 
-Log_t *nodeAffix(Log_t **hNode, const char *cStr, int num)
+Log_t *nodeAffix(Log_t **hNode, const char *cStr, int number)
 {
 	Log_t *nHead;
 
@@ -21,7 +21,7 @@ Log_t *nodeAffix(Log_t **hNode, const char *cStr, int num)
 	nHead->number = number;
 	if (cStr)
 	{
-		nHead->cStr = duplicate_str(cStr);
+		nHead->cStr = dup_str(cStr);
 		if (!nHead->cStr)
 		{
 			free(nHead);
@@ -41,7 +41,7 @@ Log_t *nodeAffix(Log_t **hNode, const char *cStr, int num)
  *
  * Return: size of list
  */
-Log_t *affixFin_node(Log_t **top, const char *cStr, int s_num)
+Log_t *affixFin_node(Log_t **top, const char *cStr, int number)
 {
 	Log_t *new_node, *node;
 
@@ -53,10 +53,10 @@ Log_t *affixFin_node(Log_t **top, const char *cStr, int s_num)
 	if (!new_node)
 		return (NULL);
 	init_Memory((void *)new_node, 0, sizeof(Log_t));
-	new_node->s_num = s_num;
+	new_node->number = number;
 	if (cStr)
 	{
-		new_node->cStr = duplicate_str(cStr);
+		new_node->cStr = dup_str(cStr);
 		if (!new_node->cStr)
 		{
 			free(new_node);

@@ -28,7 +28,7 @@ char *copy_string(char *csDest, char *src)
  * Return: pointer to the duplicated string
  */
 
-char *duplicate_str(const char *ptr)
+char *dup_str(const char *ptr)
 {
 	char *obt;
 	int size = 0;

@@ -54,7 +54,7 @@ char *beginWith(const char *haystack, const char *needle)
 	if (*needle != *haystack)
 		return (NULL);
 	}
-	return (char *haystack);
+	return ((char *)haystack);
 }
 
 /**
@@ -71,7 +71,7 @@ char *cat_string(char *strdest, char *mainbuf)
 	while (*strdest)
 		strdest++;
 	while (*mainbuf)
-		*strdest++ = *src++;
+		*strdest++ = *mainbuf++;
 	*strdest = *mainbuf;
 	return (csRet);
 }

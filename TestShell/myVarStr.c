@@ -90,7 +90,7 @@ int sub_alias(data_t *data)
 		sp = char_string(node_sub->cStr, '=');
 		if (!sp)
 			return (0);
-		sp = duplicate_str(sp + 1);
+		sp = dup_str(sp + 1);
 		if (!sp)
 			return (0);
 		data->argv[0] = sp;
@@ -117,23 +117,23 @@ int sub_vars(data_t *data)
 		if (!comp_string(data->argv[n], "$?"))
 		{
 			substi_str(&(data->argv[n]),
-					duplicate_str(num_change(data->condition, 10, 0)));
+					dup_str(num_change(data->condition, 10, 0)));
 			continue;
 		}
 		if (!comp_string(data->argv[n], "$$"))
 		{
 			substi_str(&(data->argv[n]),
-					duplicate_str(num_change(getpid(), 10, 0)));
+					dup_str(num_change(getpid(), 10, 0)));
 			continue;
 		}
 		node_vars = begNode_incl(data->env, &data->argv[n][1], '=');
 		if (node_vars)
 		{
 			substi_str(&(data->argv[n]),
-					duplicate_str(char_string(node_vars->cStr, '=') + 1));
+					dup_str(char_string(node_vars->cStr, '=') + 1));
 			continue;
 		}
-		substi_str(&data->argv[n], duplicate_str(""));
+		substi_str(&data->argv[n], dup_str(""));
 
 	}
 	return (0);

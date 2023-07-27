@@ -32,7 +32,7 @@ void _configInf(data_t *data, char **arg_vect)
 			data->argv = malloc(sizeof(char *) * 2);
 			if (data->argv)
 			{
-				data->argv[0] = duplicate_str(data->arg);
+				data->argv[0] = dup_str(data->arg);
 				data->argv[1] = NULL;
 			}
 		}
