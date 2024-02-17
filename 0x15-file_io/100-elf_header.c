@@ -1,21 +1,75 @@
-#include <elf.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <elf.h>
 
-void check_elf(unsigned char *e_ident);
-void print_magic(unsigned char *e_ident);
-void print_class(unsigned char *e_ident);
-void print_data(unsigned char *e_ident);
-void print_version(unsigned char *e_ident);
-void print_abi(unsigned char *e_ident);
-void print_osabi(unsigned char *e_ident);
-void print_type(unsigned int e_type, unsigned char *e_ident);
-void print_entry(unsigned long int e_entry, unsigned char *e_ident);
-void close_elf(int elf);
+void print_error(const char *msg) {
+	fprintf(stderr, "%s\n", msg);
+	exit(98);
+}
 
-/*
+void print_elf_header(const char *filename) {
+	int fd = open(filename, O_RDONLY);
+	if (fd == -1) {
+		perror("Error opening file");
+		exit(98);
+	}
 
+	Elf64_Ehdr header;
+
+	// Read ELF header
+	if (read(fd, &header, sizeof(header)) != sizeof(header)) {
+		perror("Error reading ELF header");
+		close(fd);
+		exit(98);
+	}
+
+	// Check if it's an ELF file
+	if (header.e_ident[EI_MAG0] != ELFMAG0 ||
+		header.e_ident[EI_MAG1] != ELFMAG1 ||
+		header.e_ident[EI_MAG2] != ELFMAG2 ||
+		header.e_ident[EI_MAG3] != ELFMAG3) {
+		print_error("Not an ELF file");
+	}
+
+	// Print ELF header information
+	printf("ELF Header:\n");
+	printf("  Magic:   ");
+	for (int i = 0; i < EI_NIDENT; ++i) {
+		printf("%02x ", header.e_ident[i]);
+	}
+	printf("\n");
+
+	printf("  Class:                             %s\n", (header.e_ident[EI_CLASS] == ELFCLASS32) ? "ELF32" : "ELF64");
+	printf("  Data:                              %s\n", (header.e_ident[EI_DATA] == ELFDATA2LSB) ? "2's complement, little endian" : "2's complement, big endian");
+	printf("  Version:                           %d (current)\n", header.e_ident[EI_VERSION]);
+	printf("  OS/ABI:                            %s\n", (header.e_ident[EI_OSABI] == ELFOSABI_SYSV) ? "UNIX - System V" : "UNIX - NetBSD");
+	printf("  ABI Version:                       %d\n", header.e_ident[EI_ABIVERSION]);
+
+	printf("  Type:                              ");
+	switch (header.e_type) {
+		case ET_EXEC: printf("EXEC (Executable file)\n"); break;
+		case ET_DYN:  printf("DYN (Shared object file)\n"); break;
+		default:      printf("<unknown: %x>\n", header.e_type); break;
+	}
+
+	// Use lseek to move to the entry point address
+	if (lseek(fd, (off_t)header.e_entry, SEEK_SET) == -1) {
+		perror("Error using lseek");
+		close(fd);
+		exit(98);
+	}
+
+	close(fd);
+}
+
+int main(int argc, char *argv[]) {
+	if (argc != 2) {
+		print_error("Usage: elf_header elf_filename");
+	}
+
+	print_elf_header(argv[1]);
+
+	return 0;
+}
