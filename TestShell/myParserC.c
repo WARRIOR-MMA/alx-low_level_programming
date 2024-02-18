@@ -52,7 +52,7 @@ char *duplicate_str(char *pathstr, int begin, int end)
 
 char *search_cmd_path(data_t *data, char *pathstr, char *command)
 {
-	int posiCurr = 0, s = 0;
+	int s = 0, posiCurr = 0;
 	char *jpath;
 
 	if (!pathstr)
@@ -66,7 +66,7 @@ char *search_cmd_path(data_t *data, char *pathstr, char *command)
 	{
 		if (!pathstr[s] || pathstr[s] == ':')
 		{
-			jpath = duplicate_str(pathstr, s, s);
+			jpath = duplicate_str(pathstr, posiCurr, s);
 			if (!*jpath)
 				cat_string(jpath, command);
 			else

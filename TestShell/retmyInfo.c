@@ -9,7 +9,7 @@ void _emptyInf(data_t *data)
 {
 	data->arg = NULL;
 	data->argv = NULL;
-	data->path = NULL;
+	data->cPath = NULL;
 	data->argc = 0;
 }
 
@@ -55,7 +55,7 @@ void _relinf(data_t *data, int entire)
 {
 	mem_free(data->argv);
 	data->argv = NULL;
-	data->path = NULL;
+	data->cPath = NULL;
 
 	if (entire)
 	{

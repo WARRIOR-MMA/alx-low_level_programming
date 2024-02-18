@@ -75,7 +75,7 @@ typedef struct takeinfo
 {
 	char **environ;
 	char **argv;
-	char *path;
+	char *cPath;
 	int argc;
 	unsigned int calcu_lin;
 	int error_amount;
@@ -88,10 +88,10 @@ typedef struct takeinfo
 	int mod_env;
 	int condition;
 
-	int bClass_command; 
+	char **buff_command;
+	int bClass_command;
 	int scan_fdesc;
 	int logHist;
-	char **buff_command;
 } data_t;
 
 #define SET_INF \
@@ -105,8 +105,8 @@ typedef struct takeinfo
  */
 typedef struct builtin
 {
-	int (*func)(data_t *);
 	char *class;
+	int (*func)(data_t *);
 } log_builtin;
 
 void locateCmd(data_t *);

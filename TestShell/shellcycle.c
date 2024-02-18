@@ -67,8 +67,8 @@ int locBuiltin(data_t *data)
 		{NULL, NULL}
 	};
 
-	for (n = 0; builtintbl[i].class; n++)
-		if (comp_string(data->argv[0], builtintbl[i].class) == 0)
+	for (n = 0; builtintbl[n].class; n++)
+		if (comp_string(data->argv[0], builtintbl[n].class) == 0)
 		{
 			data->calcu_lin++;
 			built_in_ret = builtintbl[n].func(data);
@@ -138,7 +138,7 @@ void forkCom(data_t *data)
 	}
 	if (mychild_pid == 0)
 	{
-		if (execve(data->path, data->argv, enviro_ret(data)) == -1)
+		if (execve(data->cPath, data->argv, enviro_ret(data)) == -1)
 		{
 			_relinf(data, 1);
 			if (errno == EACCES)
